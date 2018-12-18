@@ -145,6 +145,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         mSearchText=(AutoCompleteTextView) mView.findViewById(R.id.input_search);
         mGps=(ImageView)mView.findViewById(R.id.ic_gps);
 
+        mGps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: clicked gps icon");
+                getDeviceLocation();
+            }
+        });
 
         floatingActionButton = mView.findViewById(R.id.floatingActionButton);
 
@@ -274,6 +281,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         return false;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
+    }
+
     private void init(){
         Log.d(TAG, "init: initializing");
 
@@ -304,13 +318,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 return false;
             }
         });
-        mGps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: clicked gps icon");
-                getDeviceLocation();
-            }
-        });
+//        mGps.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG, "onClick: clicked gps icon");
+//                getDeviceLocation();
+//            }
+//        });
 
         hideSoftKeybard();
     }
@@ -430,6 +444,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                         }
                     }
                 });
+            }else{
+                Log.d(TAG,"mlocationPermission   "+ mLocationPermissionGranted);
             }
         }catch(SecurityException e){
 
@@ -461,7 +477,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
            if(ActivityCompat.shouldShowRequestPermissionRationale(thisActivity,Manifest.permission.ACCESS_FINE_LOCATION)) {
                ActivityCompat.requestPermissions(thisActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},Request_User_Location_Code);
            }
-
            else {
 
                ActivityCompat.requestPermissions(thisActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},Request_User_Location_Code);
@@ -473,7 +488,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         }
         else {
 
-
+        mLocationPermissionGranted = true;
 
             return true;
 

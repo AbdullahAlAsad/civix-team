@@ -37,7 +37,7 @@
         android:layout_height="match_parent"
         tools:context=".MapsActivity" />-->
 
-    <RelativeLayout
+<!--    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -47,7 +47,7 @@
         android:background="@drawable/white_border"
         android:id="@+id/relLayout1">
         
-      <!--  <ImageView
+      &lt;!&ndash;  <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:id="@+id/ic_magnify"
@@ -55,8 +55,8 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/other"/>
 
-            <!-            android:layout_toRightOf="@+id/ic_magnify"-->
--->
+            <!-            android:layout_toRightOf="@+id/ic_magnify"&ndash;&gt;
+&ndash;&gt;
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -99,7 +99,7 @@
         android:layout_marginRight="83dp"
         android:layout_marginBottom="91dp"
         android:clickable="true"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@android:drawable/btn_star_big_on" />-->
 
 
 </RelativeLayout>

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.getcivix.app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -52,14 +51,14 @@ public class LoginPage extends Activity implements View.OnClickListener{
         then ...*/
         if(v == buttonRegister) {
 
-            Intent intentSignup = new Intent(this, SignupPage.class);
-            startActivity(intentSignup);
+            //Intent intentSignup = new Intent(this, SignupPage.class);
+            //startActivity(intentSignup);
 
             /*An account is created with User Email and Password as entered
             the edit texts in case the entries are valid.
             A Success message is returned on successful registration.
             A Fail message is returned on unsuccessful registration*/
-            /*
+
             mAuth.createUserWithEmailAndPassword(editTextEmail.getText().toString(), editTextPassword.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -76,7 +75,7 @@ public class LoginPage extends Activity implements View.OnClickListener{
                             // ...
                         }
                     });
-                    */
+
 
         }
         /*When user clicks on button "Log Me In",
@@ -89,7 +88,7 @@ public class LoginPage extends Activity implements View.OnClickListener{
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                            if (true/*task.isSuccessful()*/) {
                                 // Sign in success, update UI with the signed-in user's information
 
                                 FirebaseUser user = mAuth.getCurrentUser();

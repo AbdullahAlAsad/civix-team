@@ -4,7 +4,6 @@ package com.getcivix.app;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -27,18 +26,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getcivix.app.Models.ReportInfo;
-import com.getcivix.app.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -53,7 +48,6 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -77,7 +71,8 @@ public class MapPage extends FragmentActivity implements OnMapReadyCallback, Goo
 
         switch (item.getItemId()) {
             case R.id.mapmenu:
-                fragment = new ProfileFragment();
+                fragment = new MapFragment();
+                ((MapFragment) fragment).setThisActivity(this);
                 break;
 
             case R.id.notificationmenu:
@@ -110,9 +105,10 @@ public class MapPage extends FragmentActivity implements OnMapReadyCallback, Goo
             getSupportFragmentManager()
                     .beginTransaction()
                     //.show(fragment)
-                    .replace(R.id.map, fragment)
+                    .replace(R.id.mapfragment_container, fragment)
                     .commit();
             return true;
+            //(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         }
         return false;
     }
@@ -382,9 +378,14 @@ public class MapPage extends FragmentActivity implements OnMapReadyCallback, Goo
 
     private void initMap(){
         Log.d(TAG, "initMap: initializing map");
-        SupportMapFragment mapFragment=(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+//        SupportMapFragment mapFragment=(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+//
+//        mapFragment.getMapAsync(MapPage.this);
 
-        mapFragment.getMapAsync(MapPage.this);
+       Fragment mapFragment = new MapFragment();
+       ((MapFragment) mapFragment).setThisActivity(this);
+       loadFragment(mapFragment);
+
     }
 
 

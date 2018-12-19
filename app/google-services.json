@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:635808247392:android:9e508301d84073ed",
         "android_client_info": {
-          "package_name": "com.getcivix.app"
+          "package_name": "com.example.seniortasse.civixteam"
         }
       },
       "oauth_client": [
@@ -18,8 +18,60 @@
           "client_id": "635808247392-mfdpgoueng4pd3m2fb3ns5bfb3s680nr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
+            "package_name": "com.example.seniortasse.civixteam",
+            "certificate_hash": "bbd147d8b9cf418185b69d223a7cebf0f44f2ad5"
+          }
+        },
+        {
+          "client_id": "635808247392-ohorqie3nvtbfmj596dmp3lhcvj6qgj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRVnjTXWwaHDnQs4edWtwUafppPZ2qMx0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635808247392-ohorqie3nvtbfmj596dmp3lhcvj6qgj2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635808247392:android:26961853c18ed89a",
+        "android_client_info": {
+          "package_name": "com.getcivix.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635808247392-0n4gppgtrodke32pb09vgugi5tc1dt81.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
             "package_name": "com.getcivix.app",
             "certificate_hash": "bbd147d8b9cf418185b69d223a7cebf0f44f2ad5"
+          }
+        },
+        {
+          "client_id": "635808247392-3647vjpfgc80jdj4ni3s0e13iblmkacv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.getcivix.app",
+            "certificate_hash": "745242b6e2fde6729b1fe3e900de32f7c0b48221"
           }
         },
         {

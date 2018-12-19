@@ -92,6 +92,7 @@ public class LoginPage extends Activity implements View.OnClickListener{
                                 // Sign in success, update UI with the signed-in user's information
 
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                StaticConstants.userID = user.getUid();
                                 Toast.makeText(LoginPage.this, "Login successful", Toast.LENGTH_SHORT).show();
                                 Intent intentHomePage = new Intent(LoginPage.this, MapPage.class);
                                 //Intent intentHomePage = new Intent(LoginPage.this, OtherReport.class);

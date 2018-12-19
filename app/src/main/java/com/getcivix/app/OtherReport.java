@@ -28,8 +28,8 @@ public class OtherReport extends AppCompatActivity implements BottomNavigationVi
         setContentView(R.layout.activity_other_report);
 
 
-        navigation = findViewById(R.id.main_nav);
-        navigation.setOnNavigationItemSelectedListener(this);
+        //navigation = findViewById(R.id.main_nav);
+        //navigation.setOnNavigationItemSelectedListener(this);
 
 
     }
@@ -70,6 +70,7 @@ public class OtherReport extends AppCompatActivity implements BottomNavigationVi
 
     private boolean loadFragment(Fragment fragment) {
         //switching fragment
+        /*
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -77,6 +78,7 @@ public class OtherReport extends AppCompatActivity implements BottomNavigationVi
                     .commit();
             return true;
         }
+        */
         return false;
     }
 }

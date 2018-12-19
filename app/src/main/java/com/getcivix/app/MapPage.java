@@ -32,7 +32,7 @@ public class MapPage extends FragmentActivity implements
                 break;
 
             case R.id.notificationmenu:
-                fragment = new ProfileFragment();
+                fragment = new NotificationFragment();
                 break;
 
             case R.id.voicemenu:

@@ -439,6 +439,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                                     DEFAULT_ZOOM,
                                     "My Location");
 
+                            StaticConstants.reportLocation = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+
                         }else{
                             Log.d(TAG, "onComplete: current location is null");
                             Toast.makeText(getActivity(), "unable to get current location",Toast.LENGTH_SHORT).show();

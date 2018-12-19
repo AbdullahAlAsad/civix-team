@@ -138,7 +138,7 @@ public class ProfileFragment extends Fragment {
         if(null != reportLocation){
             location  = reportLocation.toString();
         }else{
-            location = "0,0";
+            location = "lat/lng: (23.7258262,90.4211494)";
         }
 
 

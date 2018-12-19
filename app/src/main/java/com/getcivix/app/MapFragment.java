@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -35,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getcivix.app.Models.ReportInfo;
+import com.getcivix.app.Models.ReportModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -60,6 +63,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.io.IOException;
@@ -101,6 +110,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     //widgets
     private AutoCompleteTextView mSearchText;
     private ImageView mGps;
+    private Bitmap reporMapMarker;
+    private int widthPixels,heightPixels;
+    private float h2w2;
 
     public void setmLocationPermissionGranted(Boolean mLocationPermissionGranted) {
         this.mLocationPermissionGranted = mLocationPermissionGranted;
@@ -327,7 +339,86 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 //            }
 //        });
 
+        mMap.setInfoWindowAdapter(new InfoWindowCustom(this.getContext()));
+
         hideSoftKeybard();
+
+        reporMapMarker = BitmapFactory.decodeResource(
+                getResources(), R.drawable.report_markar);
+        h2w2 = (float)reporMapMarker.getHeight()/reporMapMarker.getWidth();
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+
+        this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        heightPixels = displaymetrics.heightPixels;
+        widthPixels = displaymetrics.widthPixels;
+
+        // fetch repors and show marker on each location
+
+        addReportChangeListener();
+    }
+
+
+    /**
+     * User data change listener
+     */
+    private void addReportChangeListener() {
+        // User data change listener
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        Query lastQuery = databaseReference.child("eventReport").orderByKey();
+        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                    ReportModel report = data.getValue(ReportModel.class);
+
+                    // Check for null
+                    if (report == null) {
+                        Log.e(TAG, "User data is null!");
+                        return;
+                    }
+
+                    Log.e(TAG, "User data is changed!" + report.toString() );
+
+                    // Display newly updated name and email
+
+                    addMarker(report);
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Handle possible errors.
+            }
+        });
+
+    }
+
+    private void addMarker(ReportModel report){
+
+        int startIndex = report.reportLocation.indexOf("(");
+        int endIndex = report.reportLocation.indexOf(")");
+
+        String splitedString = report.reportLocation.substring(startIndex+1,endIndex);
+        Log.d("Split latlang", splitedString);
+
+        String[] latLang = splitedString.split(",");
+        double lat = Double.valueOf(latLang[0]);
+        double lang = Double.valueOf(latLang[1]);
+
+        MarkerOptions mkop = new MarkerOptions();
+        LatLng place = new LatLng(lat, lang);
+        mkop.position(place);
+        Marker marker = mMap.addMarker(mkop);
+        marker.setIcon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(reporMapMarker, widthPixels/20+5, (int)((widthPixels/20+5)*h2w2), true)));
+        //marker.setSnippet(report.comment);
+        marker.setTag(report);
+
     }
 
     private void geoLocate(){
@@ -615,6 +706,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
+
+
+
 
 
 }

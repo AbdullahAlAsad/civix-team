@@ -197,31 +197,6 @@ public class NotificationFragment extends Fragment {
             }
         });
 
-/*        mFirebaseDatabaseReport.limitToLast(1).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ReportModel report = dataSnapshot.getValue(ReportModel.class);
-
-                // Check for null
-                if (report == null) {
-                    Log.e(TAG, "User data is null!");
-                    return;
-                }
-
-                Log.e(TAG, "User data is changed!" + report.reporterUserID );
-
-                // Display newly updated name and email
-                mTextViewReportTime.setText(String.valueOf(report.reportTime)); // pelase use a time mili to readable time converter
-                mTextViewReportStreetAddress.setText(report.reportLocation);
-                mTextViewReportCategory.setText(report.comment);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.e(TAG, "Failed to read user", error.toException());
-            }
-        });*/
     }
 
 }

@@ -80,11 +80,19 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:gravity="center_horizontal"
-                    android:text="Attach your profile picture"
+                    android:text="image_name"
+                    android:hint="Give a image name"
                     android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/buttonAttachPicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Attach" />
+
+                <Button
+                    android:id="@+id/buttonUplaodPicture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -146,11 +154,18 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:gravity="center_horizontal"
-                    android:text="Attach a picture for the report"
+                    android:text="report_image_name"
                     android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/buttonAttachReportPicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Attach" />
+
+                <Button
+                    android:id="@+id/buttonUplaodReportPicture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

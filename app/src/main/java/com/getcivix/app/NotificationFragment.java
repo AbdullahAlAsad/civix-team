@@ -1,9 +1,6 @@
 package com.getcivix.app;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,18 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.getcivix.app.Models.ReportModel;
 import com.getcivix.app.Models.User;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 
 public class NotificationFragment extends Fragment {
@@ -58,6 +55,8 @@ public class NotificationFragment extends Fragment {
     private FirebaseDatabase mFirebaseInstance;
 
     private String userId;
+    private ImageView mImageViewReportPicture;
+    private ImageView mImageViewProfilePicture;
 
     // report data
 
@@ -86,10 +85,15 @@ public class NotificationFragment extends Fragment {
         mTextViewGender = mView.findViewById(R.id.textViewGender);
         mTextViewInterest = mView.findViewById(R.id.textViewInterest);
         mTextViewCredibility = mView.findViewById(R.id.textViewCredibility);
+        mImageViewProfilePicture =  mView.findViewById(R.id.imageViewProfilePicture);
+
 
         mTextViewReportTime =  mView.findViewById(R.id.textViewReportTime);
         mTextViewReportStreetAddress =  mView.findViewById(R.id.textViewReportStreetAddress);
         mTextViewReportCategory =  mView.findViewById(R.id.textViewReportCategory);
+        mImageViewReportPicture =  mView.findViewById(R.id.imageViewReportPicture);
+
+
 //      mProfilePictureInput = mView.findViewById(R.id.textViewAttachPicture);
         mButtonViewUser = mView.findViewById(R.id.buttonViewUser);
         mButtonSubmitReport = mView.findViewById(R.id.buttonSubmitReport);
@@ -141,7 +145,7 @@ public class NotificationFragment extends Fragment {
                     return;
                 }
 
-                Log.e(TAG, "User data is changed!" + user.userName + ", " + user.email);
+                Log.e(TAG, "User data is changed!" + user.toString());
 
                 // Display newly updated name and email
                 mTextViewSurname.setText(user.userName);
@@ -149,6 +153,13 @@ public class NotificationFragment extends Fragment {
                 mTextViewGender.setText(user.gender);
                 mTextViewInterest.setText(user.interest);
                 mTextViewCredibility.setText(String.valueOf(user.credibility));
+
+//                Picasso.get().load(user.uplaodedProfileImageKey).into(mImageViewProfilePicture);
+
+                Picasso.get()
+                        .load(user.uplaodedProfileImageKey)
+                        .error(R.drawable.common_google_signin_btn_icon_dark)
+                        .into(mImageViewProfilePicture);
             }
 
             @Override
@@ -186,6 +197,14 @@ public class NotificationFragment extends Fragment {
                     mTextViewReportTime.setText(String.valueOf(report.reportTime)); // pelase use a time mili to readable time converter
                     mTextViewReportStreetAddress.setText(report.reportLocation);
                     mTextViewReportCategory.setText(report.comment);
+
+                    Picasso.get()
+                            .load(report.uplaodedReportImageKey)
+                            .error(R.drawable.common_google_signin_btn_icon_dark)
+                            .into(mImageViewReportPicture);
+
+
+                  //  Picasso.get().load(report.uplaodedReportImageKey).into(mImageViewReportPicture);
                 }
 
 

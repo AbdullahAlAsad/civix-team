@@ -169,11 +169,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             checkUserLocationPermission();
 
         }
-
-
-
         return mView;
     }
+
+
+
+
 
 
     private void showMyDialog(Context context) {

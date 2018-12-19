@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.getcivix.app.Models.Category;
 import com.getcivix.app.Models.ReportModel;
 import com.getcivix.app.Models.User;
 import com.google.android.gms.maps.model.LatLng;
@@ -39,6 +40,7 @@ public class ProfileFragment extends Fragment {
 
   //  editTextEnterYourComment  buttonSubmitReport
     private EditText mComment;
+    private EditText mEditTextEnterCategory;
     private Button mSubmitReportButton;
 
 
@@ -74,6 +76,7 @@ public class ProfileFragment extends Fragment {
         mUseGenderInput = mView.findViewById(R.id.editTextEnterGender);
         mUserInterestInput = mView.findViewById(R.id.editTextEnterInterests);
         mComment =  mView.findViewById(R.id.editTextEnterYourComment);
+        mEditTextEnterCategory =  mView.findViewById(R.id.editTextEnterCategory);
 //      mProfilePictureInput = mView.findViewById(R.id.textViewAttachPicture);
         mRegisterButton = mView.findViewById(R.id.buttonRegisterUser);
         mSubmitReportButton = mView.findViewById(R.id.buttonSubmitReport);
@@ -116,11 +119,19 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String comment = mComment.getText().toString();
+                String categoryType = mEditTextEnterCategory.getText().toString();
                 Long reportTime = System.currentTimeMillis();
                 LatLng reportLocation = StaticConstants.reportLocation;
                 String reporterId = userId;
+                Category category = null;
+                if(categoryType.equals("1"))
+                    category =  new Category("1",1, "red");
+                else if(categoryType.equals("2"))
+                    category =  new Category("2",2, "gren");
+                else if(categoryType.equals("3"))
+                    category =  new Category("3",3, "yellow");
 
-                createReport(comment,reportTime,reportLocation,reporterId );
+                createReport(comment,category,reportTime,reportLocation,reporterId );
 
             }
         });
@@ -128,7 +139,7 @@ public class ProfileFragment extends Fragment {
         return mView;
     }
 
-    private void createReport(String comment, Long reportTime, LatLng reportLocation, String reporterId) {
+    private void createReport(String comment,Category category, Long reportTime, LatLng reportLocation, String reporterId) {
 
 
             String reportId = mFirebaseDatabaseReport.push().getKey();
@@ -143,7 +154,7 @@ public class ProfileFragment extends Fragment {
 
 
 
-        ReportModel report = new ReportModel(comment, reportTime, location, reporterId);
+        ReportModel report = new ReportModel(comment,category, reportTime, location, reporterId);
 
         mFirebaseDatabaseReport.child(reportId).setValue(report);
     }
